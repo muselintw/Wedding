@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>婚禮邀請函</title>
+  <script src="https://static.line-scdn.net/liff/edge/versions/2.22.3/sdk.js"></script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #f5f5f5;
+      font-family: sans-serif;
+    }
+    button {
+      padding: 16px 32px;
+      font-size: 16px;
+      background: #95A58D;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="shareInvitation()">📤 分享婚禮邀請函</button>
+
+  <script>
+    liff.init({ liffId: "貼上你的LIFF_ID" }).then(() => {
+      if (!liff.isInClient()) {
+        alert("請在 LINE 內開啟此頁面");
+      }
+    });
+
+    function shareInvitation() {
+      liff.shareTargetPicker([
+        {
+          "type": "flex",
+          "altText": "婚禮邀請函",
+          "contents": {
+            "type": "bubble",
+            "size": "giga",
+            "hero": {
+              "type": "image",
+              "url": "https://raw.githubusercontent.com/muselintw/Wedding/main/%E5%A4%A7Gemini_Generated_Image_effw9meffw9meffw.jpeg",
+              "size": "full",
+              "aspectRatio": "1:1",
+              "aspectMode": "cover",
+              "action": {
+                "type": "uri",
+                "uri": "https://raw.githubusercontent.com/muselintw/Wedding/main/%E5%A4%A7Gemini_Generated_Image_effw9meffw9meffw.jpeg"
+              }
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "backgroundColor": "#FFFFFF",
+              "paddingAll": "20px",
+              "contents": [
+                { "type": "text", "text": "WEDDING INVITATION", "size": "xs", "color": "#95A58D", "weight": "bold" },
+                { "type": "text", "text": "誠摯邀請您見證我們的婚禮", "size": "lg", "weight": "bold", "color": "#3a3a3a", "wrap": true, "margin": "sm" },
+                { "type": "separator", "margin": "md", "color": "#e0e0e0" },
+                {
+                  "type": "box", "layout": "vertical", "margin": "md", "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "box", "layout": "horizontal",
+                      "contents": [
+                        { "type": "text", "text": "📌 地點", "size": "sm", "color": "#888888", "flex": 2 },
+                        { "type": "text", "text": "📍 翡麗詩莊園 5F", "size": "sm", "color": "#5D7B9F", "flex": 5, "weight": "bold", "action": { "type": "uri", "uri": "https://maps.app.goo.gl/fAZNh2bhtvjimGdV7" } }
+                      ]
+                    },
+                    {
+                      "type": "box", "layout": "horizontal",
+                      "contents": [
+                        { "type": "text", "text": "💍 證婚", "size": "sm", "color": "#888888", "flex": 2 },
+                        { "type": "text", "text": "2026.03.28　15:45 入場", "size": "sm", "color": "#3a3a3a", "weight": "bold", "flex": 5 }
+                      ]
+                    },
+                    {
+                      "type": "box", "layout": "horizontal",
+                      "contents": [
+                        { "type": "text", "text": "🥂 宴客", "size": "sm", "color": "#888888", "flex": 2 },
+                        { "type": "text", "text": "2026.03.28　17:30 入座", "size": "sm", "color": "#3a3a3a", "weight": "bold", "flex": 5 }
+                      ]
+                    }
+                  ]
+                },
+                { "type": "separator", "margin": "md", "color": "#e0e0e0" },
+                {
+                  "type": "box", "layout": "vertical", "margin": "md",
+                  "contents": [
+                    { "type": "text", "text": "Dress Code", "size": "sm", "weight": "bold", "color": "#95A58D" },
+                    { "type": "text", "text": "誠摯邀請您著以下色系服飾與我們共享喜悅：", "size": "xs", "color": "#888888", "wrap": true, "margin": "xs" },
+                    {
+                      "type": "box", "layout": "horizontal", "margin": "md", "spacing": "sm",
+                      "contents": [
+                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#DADEDF", "contents": [] },
+                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#C0CFB2", "contents": [] },
+                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#95A58D", "contents": [] },
+                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#9BAED4", "contents": [] },
+                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#5D7B9F", "contents": [] }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "footer": {
+              "type": "box", "layout": "vertical", "spacing": "sm", "paddingAll": "16px", "backgroundColor": "#F7F7F7",
+              "contents": [
+                { "type": "button", "style": "primary", "color": "#95A58D", "height": "sm", "action": { "type": "uri", "label": "🎊 證婚程序", "uri": "https://www.youtube.com/watch?v=LynpbKYQshk" } },
+                { "type": "button", "style": "secondary", "height": "sm", "action": { "type": "uri", "label": "🅿️ 附近停車場｜中山國中地下停車場", "uri": "https://maps.app.goo.gl/6798CnvXKfPxAoxFA" } }
+              ]
+            },
+            "styles": { "footer": { "separator": true, "separatorColor": "#e0e0e0" } }
+          }
+        }
+      ]);
+    }
+  </script>
+</body>
+</html>
