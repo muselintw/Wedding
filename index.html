@@ -15,6 +15,7 @@
       margin: 0;
       background: #f5f5f5;
       font-family: sans-serif;
+      gap: 16px;
     }
     button {
       padding: 16px 32px;
@@ -25,19 +26,43 @@
       border-radius: 8px;
       cursor: pointer;
     }
+    #status {
+      font-size: 13px;
+      color: #888;
+      text-align: center;
+      padding: 0 24px;
+    }
+    #error {
+      font-size: 13px;
+      color: red;
+      text-align: center;
+      padding: 0 24px;
+    }
   </style>
 </head>
 <body>
   <button onclick="shareInvitation()">📤 分享婚禮邀請函</button>
+  <div id="status">初始化中...</div>
+  <div id="error"></div>
 
   <script>
-    liff.init({ liffId: "2005639974-3o03ykVg" }).then(() => {
-      if (!liff.isInClient()) {
-        alert("請在 LINE 內開啟此頁面");
-      }
-    });
+    const status = document.getElementById('status');
+    const errorDiv = document.getElementById('error');
+
+    liff.init({ liffId: "2005639974-3o03ykVg" })
+      .then(() => {
+        if (!liff.isInClient()) {
+          status.textContent = "⚠️ 請用手機 LINE App 開啟此頁面";
+        } else {
+          status.textContent = "✅ 已在 LINE 內開啟，可以分享";
+        }
+      })
+      .catch(err => {
+        errorDiv.textContent = "初始化失敗：" + err.message;
+      });
 
     function shareInvitation() {
+      status.textContent = "分享中...";
       liff.shareTargetPicker([
         {
           "type": "flex",
@@ -51,16 +76,10 @@
               "size": "full",
               "aspectRatio": "1:1",
               "aspectMode": "cover",
-              "action": {
-                "type": "uri",
-                "uri": "https://raw.githubusercontent.com/muselintw/Wedding/main/%E5%A4%A7Gemini_Generated_Image_effw9meffw9meffw.jpeg"
-              }
+              "action": { "type": "uri", "uri": "https://raw.githubusercontent.com/muselintw/Wedding/main/%E5%A4%A7Gemini_Generated_Image_effw9meffw9meffw.jpeg" }
             },
             "body": {
-              "type": "box",
-              "layout": "vertical",
-              "backgroundColor": "#FFFFFF",
-              "paddingAll": "20px",
+              "type": "box", "layout": "vertical", "backgroundColor": "#FFFFFF", "paddingAll": "20px",
               "contents": [
                 { "type": "text", "text": "WEDDING INVITATION", "size": "xs", "color": "#95A58D", "weight": "bold" },
                 { "type": "text", "text": "誠摯邀請您見證我們的婚禮", "size": "lg", "weight": "bold", "color": "#3a3a3a", "wrap": true, "margin": "sm" },
@@ -68,27 +87,18 @@
                 {
                   "type": "box", "layout": "vertical", "margin": "md", "spacing": "sm",
                   "contents": [
-                    {
-                      "type": "box", "layout": "horizontal",
-                      "contents": [
-                        { "type": "text", "text": "📌 地點", "size": "sm", "color": "#888888", "flex": 2 },
-                        { "type": "text", "text": "📍 翡麗詩莊園 5F", "size": "sm", "color": "#5D7B9F", "flex": 5, "weight": "bold", "action": { "type": "uri", "uri": "https://maps.app.goo.gl/fAZNh2bhtvjimGdV7" } }
-                      ]
-                    },
-                    {
-                      "type": "box", "layout": "horizontal",
-                      "contents": [
-                        { "type": "text", "text": "💍 證婚", "size": "sm", "color": "#888888", "flex": 2 },
-                        { "type": "text", "text": "2026.03.28　15:45 入場", "size": "sm", "color": "#3a3a3a", "weight": "bold", "flex": 5 }
-                      ]
-                    },
-                    {
-                      "type": "box", "layout": "horizontal",
-                      "contents": [
-                        { "type": "text", "text": "🥂 宴客", "size": "sm", "color": "#888888", "flex": 2 },
-                        { "type": "text", "text": "2026.03.28　17:30 入座", "size": "sm", "color": "#3a3a3a", "weight": "bold", "flex": 5 }
-                      ]
-                    }
+                    { "type": "box", "layout": "horizontal", "contents": [
+                      { "type": "text", "text": "📌 地點", "size": "sm", "color": "#888888", "flex": 2 },
+                      { "type": "text", "text": "📍 翡麗詩莊園 5F", "size": "sm", "color": "#5D7B9F", "flex": 5, "weight": "bold", "action": { "type": "uri", "uri": "https://maps.app.goo.gl/fAZNh2bhtvjimGdV7" } }
+                    ]},
+                    { "type": "box", "layout": "horizontal", "contents": [
+                      { "type": "text", "text": "💍 證婚", "size": "sm", "color": "#888888", "flex": 2 },
+                      { "type": "text", "text": "2026.03.28　15:45 入場", "size": "sm", "color": "#3a3a3a", "weight": "bold", "flex": 5 }
+                    ]},
+                    { "type": "box", "layout": "horizontal", "contents": [
+                      { "type": "text", "text": "🥂 宴客", "size": "sm", "color": "#888888", "flex": 2 },
+                      { "type": "text", "text": "2026.03.28　17:30 入座", "size": "sm", "color": "#3a3a3a", "weight": "bold", "flex": 5 }
+                    ]}
                   ]
                 },
                 { "type": "separator", "margin": "md", "color": "#e0e0e0" },
@@ -97,16 +107,13 @@
                   "contents": [
                     { "type": "text", "text": "Dress Code", "size": "sm", "weight": "bold", "color": "#95A58D" },
                     { "type": "text", "text": "誠摯邀請您著以下色系服飾與我們共享喜悅：", "size": "xs", "color": "#888888", "wrap": true, "margin": "xs" },
-                    {
-                      "type": "box", "layout": "horizontal", "margin": "md", "spacing": "sm",
-                      "contents": [
-                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#DADEDF", "contents": [] },
-                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#C0CFB2", "contents": [] },
-                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#95A58D", "contents": [] },
-                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#9BAED4", "contents": [] },
-                        { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#5D7B9F", "contents": [] }
-                      ]
-                    }
+                    { "type": "box", "layout": "horizontal", "margin": "md", "spacing": "sm", "contents": [
+                      { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#DADEDF", "contents": [] },
+                      { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#C0CFB2", "contents": [] },
+                      { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#95A58D", "contents": [] },
+                      { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#9BAED4", "contents": [] },
+                      { "type": "box", "layout": "vertical", "flex": 1, "height": "48px", "cornerRadius": "6px", "backgroundColor": "#5D7B9F", "contents": [] }
+                    ]}
                   ]
                 }
               ]
@@ -121,7 +128,18 @@
             "styles": { "footer": { "separator": true, "separatorColor": "#e0e0e0" } }
           }
         }
-      ]);
+      ])
+      .then(res => {
+        if (res) {
+          status.textContent = "✅ 分享成功！";
+        } else {
+          status.textContent = "取消分享";
+        }
+      })
+      .catch(err => {
+        errorDiv.textContent = "分享失敗：" + err.message;
+        status.textContent = "";
+      });
     }
   </script>
 </body>
